@@ -1,0 +1,144 @@
+#!/bin/bash
+passwd=grep 'temporary password' /var/log/mysqld.log
+
+version=cat /etc/redhat-release
+version_1=uname -m
+m=cat /etc/redhat-release | awk {'print $3'} | awk -F. {'print $1'}
+if [ $m != 5 ] 
+then
+if [ $m != 6 ]
+then
+m=cat /etc/redhat-release | awk {'print $4'} | awk -F. {'print $1'}
+fi
+fi
+echo "################################################################################"
+echo "# #"
+echo "# #"
+echo "# INSTALL MYSQL(5.5/5.6/5.7) #"
+echo "# #"
+echo "# #"
+echo "################################################################################"
+echo "1 Install mysql 5.5"
+echo "2 Install mysql 5.6"
+echo "3 Install mysql 5.7"
+read -p "Input your choce:" i
+if [ $i -eq 1 ]
+then
+echo "Start install mysql5.5!"
+echo "Scanning system infomation!,please waiting..."
+sleep 3
+echo "You system is $version $version_1"
+if [ $m -ge 6 ]
+then
+rpm -ivh http://repo.mysql.com//mysql57-community-release-el6-8.noarch.rpm
+echo "[mysql55-community]" >/etc/yum.repos.d/mysql-community.repo
+echo "name=MySQL 5.5 Community Server" >>/etc/yum.repos.d/mysql-community.repo
+echo "baseurl=http://repo.mysql.com/yum/mysql-5.5-community/el/6/\$basearch/" >>/etc/yum.repos.d/mysql-community.repo
+echo "enabled=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgcheck=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql" >>/etc/yum.repos.d/mysql-community.repo
+yum clean all && yum -y install mysql-community-server
+elif [ $m -ge 7 ]
+then
+rpm -ivh http://repo.mysql.com//mysql57-community-release-el7-8.noarch.rpm
+echo "[mysql55-community]" >/etc/yum.repos.d/mysql-community.repo
+echo "name=MySQL 5.5 Community Server" >>/etc/yum.repos.d/mysql-community.repo
+echo "baseurl=http://repo.mysql.com/yum/mysql-5.5-community/el/7/\$basearch/" >>/etc/yum.repos.d/mysql-community.repo
+echo "enabled=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgcheck=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql" >>/etc/yum.repos.d/mysql-community.repo
+yum clean all && yum -y install mysql-community-server
+elif [ $m -ge 5 ]
+then
+rpm -ivh http://repo.mysql.com//mysql57-community-release-el5-7.noarch.rpm
+echo "[mysql55-community]" >/etc/yum.repos.d/mysql-community.repo
+echo "name=MySQL 5.5 Community Server" >>/etc/yum.repos.d/mysql-community.repo
+echo "baseurl=http://repo.mysql.com/yum/mysql-5.5-community/el/5/\$basearch/" >>/etc/yum.repos.d/mysql-community.repo
+echo "enabled=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgcheck=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql" >>/etc/yum.repos.d/mysql-community.repo
+yum clean all && yum -y install mysql-community-server
+else
+echo "This script is not suitable for your system!"
+fi
+elif [ $i -eq 2 ]
+then
+echo "Start install mysql5.6!"
+echo "Scanning system infomation!,please waiting..."
+sleep 3
+echo "You system is $version $version_1"
+if [ $m -ge 6 ]
+then
+rpm -ivh http://repo.mysql.com//mysql57-community-release-el6-8.noarch.rpm
+echo "[mysql56-community]" >/etc/yum.repos.d/mysql-community.repo
+echo "name=MySQL 5.6 Community Server" >>/etc/yum.repos.d/mysql-community.repo
+echo "baseurl=http://repo.mysql.com/yum/mysql-5.6-community/el/6/\$basearch/" >>/etc/yum.repos.d/mysql-community.repo
+echo "enabled=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgcheck=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql" >>/etc/yum.repos.d/mysql-community.repo
+yum clean all && yum -y install mysql-community-server
+elif [ $m -ge 7 ]
+then
+rpm -ivh http://repo.mysql.com//mysql57-community-release-el7-8.noarch.rpm
+echo "[mysql56-community]" >/etc/yum.repos.d/mysql-community.repo
+echo "name=MySQL 5.6 Community Server" >>/etc/yum.repos.d/mysql-community.repo
+echo "baseurl=http://repo.mysql.com/yum/mysql-5.6-community/el/7/\$basearch/" >>/etc/yum.repos.d/mysql-community.repo
+echo "enabled=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgcheck=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql" >>/etc/yum.repos.d/mysql-community.repo
+yum clean all && yum -y install mysql-community-server
+elif [ $m -ge 5 ]
+then
+rpm -ivh http://repo.mysql.com//mysql57-community-release-el5-7.noarch.rpm
+echo "[mysql56-community]" >/etc/yum.repos.d/mysql-community.repo
+echo "name=MySQL 5.6 Community Server" >>/etc/yum.repos.d/mysql-community.repo
+echo "baseurl=http://repo.mysql.com/yum/mysql-5.6-community/el/5/\$basearch/" >>/etc/yum.repos.d/mysql-community.repo
+echo "enabled=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgcheck=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql" >>/etc/yum.repos.d/mysql-community.repo
+yum clean all && yum -y install mysql-community-server
+else
+echo "This script is not suitable for your system!"
+fi
+elif [ $i -eq 3 ]
+then
+echo "Start install mysql5.7!"
+echo "Scanning system infomation!,please waiting..."
+sleep 3
+echo "You system is $version $version_1"
+if [ $m -ge 6 ]
+then
+rpm -ivh http://repo.mysql.com//mysql57-community-release-el6-8.noarch.rpm
+echo "[mysql57-community]" >/etc/yum.repos.d/mysql-community.repo
+echo "name=MySQL 5.7 Community Server" >>/etc/yum.repos.d/mysql-community.repo
+echo "baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/6/\$basearch/" >>/etc/yum.repos.d/mysql-community.repo
+echo "enabled=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgcheck=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql" >>/etc/yum.repos.d/mysql-community.repo
+yum clean all && yum -y install mysql-community-server && echo "mysql password:$passwd"
+elif [ $m -ge 7 ]
+then
+rpm -ivh http://repo.mysql.com//mysql57-community-release-el7-8.noarch.rpm
+echo "[mysql57-community]" >/etc/yum.repos.d/mysql-community.repo
+echo "name=MySQL 5.7 Community Server" >>/etc/yum.repos.d/mysql-community.repo
+echo "baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/7/\$basearch/" >>/etc/yum.repos.d/mysql-community.repo
+echo "enabled=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgcheck=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql" >>/etc/yum.repos.d/mysql-community.repo
+yum clean all && yum -y install mysql-community-server
+elif [ $m -ge 5 ]
+then
+rpm -ivh http://repo.mysql.com//mysql57-community-release-el5-7.noarch.rpm
+echo "[mysql57-community]" >/etc/yum.repos.d/mysql-community.repo
+echo "name=MySQL 5.7 Community Server" >>/etc/yum.repos.d/mysql-community.repo
+echo "baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/5/\$basearch/" >>/etc/yum.repos.d/mysql-community.repo
+echo "enabled=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgcheck=1" >>/etc/yum.repos.d/mysql-community.repo
+echo "gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql" >>/etc/yum.repos.d/mysql-community.repo
+yum clean all && yum -y install mysql-community-server && echo "mysql password:$passwd"
+else
+echo "This script is not suitable for your system!"
+fi
+else
+echo "input error!"
+fi
